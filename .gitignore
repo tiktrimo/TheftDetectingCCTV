@@ -1,0 +1,13 @@
+.vscode/
+Backup/
+checkpoints/
+configs/
+cvs/
+preprocessors/source/
+*.zip
+validate/*/
+/train*
+/yolo*
+/tutorial*
+
+
