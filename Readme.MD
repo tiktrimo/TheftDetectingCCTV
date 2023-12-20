@@ -59,7 +59,8 @@ POS기 사용여부는 Human Position Estimation을 이용하여 감지합니다
 <img src="images/Image_20231220_163737.png" height="180">
 
 **4. 학습 모델**  
-멘토님이 알려주신 정보에 따르면 CCTV와 같이 저성능 프로세서를 가진 환경에서는 CNN기반의 TSM을 사용하는 것이 좋다고 하셨습니다. 특히 2D CNN으로 성능을 최대한 이끌어내야 한다고 하셨습니다. 이에 따라 CNN기반 TSM(2019), TSN(2016)을 테스트 해보고 추가적으로 트랜스포머 기반 VideoSwin(2021), TimesFormer(2021)를 테스트 했습니다. 아래는 각 Pre-trained된 모델을 이용하여 추가적인 학습을 했을 때의 결과입니다. VideoSwin의 경우 Learning Rate의 설정을 잘못하여 잘못된 학습을 한 것으로 추측됩니다. 각 모델은 제품 습득 행동을 검출/비검출 하는 Binary Class Output을 가지며 이에 따라 Accuracy/Top1을 지표로 사용했습니다. **각 학습의 과정은 [구글 코랩 링크](https://colab.research.google.com/drive/1iJpA_yR5AryjNhQbgzNgCJsdHBMA0IvU?usp=sharing)(483MB이기 때문에 로딩에 시간이 걸립니다)에서 확인할 수 있습니다.**  
+멘토님이 알려주신 정보에 따르면 CCTV와 같이 저성능 프로세서를 가진 환경에서는 CNN기반의 TSM을 사용하는 것이 좋다고 하셨습니다. 특히 2D CNN으로 성능을 최대한 이끌어내야 한다고 하셨습니다. 이에 따라 CNN기반 TSM(2019), TSN(2016)을 테스트 해보고 추가적으로 트랜스포머 기반 VideoSwin(2021), TimesFormer(2021)를 테스트 했습니다. 아래는 각 Pre-trained된 모델을 이용하여 추가적인 학습을 했을 때의 결과입니다. VideoSwin의 경우 Learning Rate의 설정을 잘못하여 잘못된 학습을 한 것으로 추측됩니다. 각 모델은 제품 습득 행동을 검출/비검출 하는 Binary Class Output을 가지며 이에 따라 Accuracy/Top1을 지표로 사용했습니다.   
+**각 학습의 과정은 [구글 코랩 링크](https://colab.research.google.com/drive/1iJpA_yR5AryjNhQbgzNgCJsdHBMA0IvU?usp=sharing)(483MB이기 때문에 로딩에 시간이 걸립니다)에서 확인할 수 있습니다.**  
 <img src="images/Image_20231220_164248.png" height="200">
 
 **5. 결과 모델**  
