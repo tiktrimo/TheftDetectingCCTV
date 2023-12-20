@@ -10,24 +10,24 @@
 
 ## 프로젝트 결과
 ### 환경
-- 사용 데이터셋 : [AI허브 - 실내(편의점, 매장) 사람 이상행동 데이터](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=71550)  
-- Accuracy 측정용 데이터셋 분포 : 방화/흡연/폭행/전도/절도 5개 분야, 균등 분포, 영상 121개.
-- Accuracy측정 환경 : **무인 POS기**가 존재하는 영상 121개, Train, Validation영상과 **다른 구도**의 영상.
+- **사용 데이터셋** : [AI허브 - 실내(편의점, 매장) 사람 이상행동 데이터](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=71550)  
+- **Accuracy 측정용** 데이터셋 분포 : 방화/흡연/폭행/전도/절도 5개 분야, 균등 분포, 영상 121개.
+- **Accuracy측정 환경** : 무인 POS기가 존재하는 영상 121개, Train, Validation영상과 **다른 구도**의 영상.
 ### 결과
-- Accuracy : **80.82%**
-- 데모용 웹 링크 :[데모용 웹 앱](https://rideonwater-61927.web.app/)  
+- **Accuracy** : 80.82%
+- **데모용 웹 링크** :[데모용 웹 앱](https://rideonwater-61927.web.app/)  
 
 <img src="images/Image_20231220_154729.png" height="240">
 
 ## 구현 상세 사항
 ### 데이터셋  
 사용한 [데이터셋](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=71550)의 영상은 아래와 같은 사항을 가지고 있습니다.
-- 영상 등장 인물 수 : 1~2명
-- 매장 규모 : CCTV하나로 매장 전체를 확인할 수 있는 규모
-- 행동 사각지대 여부 : 행동(절도, 방화 등)이 일어날 때 사람의 전신을 확인할 수 있음
-- 유인/무인 여부 : 50%/50%비율로 유인/무인 매장
-- 영상 품질 : 1920X1080(3fps)
-- 영상 개수 : 사용한 분야(방화/흡연/폭행/전도/절도)총합 **1200개**  
+- **영상 등장 인물 수** : 1~2명
+- **매장 규모** : CCTV하나로 매장 전체를 확인할 수 있는 규모
+- **행동 사각지대 여부** : 행동(절도, 방화 등)이 일어날 때 사람의 전신을 확인할 수 있음
+- **유인/무인 여부** : 50%/50%비율로 유인/무인 매장
+- **영상 품질** : 1920X1080(3fps)
+- **영상 개수** : 사용한 분야(방화/흡연/폭행/전도/절도)총합 1200개  
 
 ### 절도의 단계
 절도는 방화/흡연/폭행/전도와 같은 행동과 다르게 단발적인 행동의 결과가 아닙니다. 절도는 일반적인 상황을 가정했을 때 매자 입장 후 제품을 습득한 이후 결제를 하지 않고 퇴장했을 경우에 절도라고 판단할 수 있습니다. 따라서 여러 행동의 연속된 결과를 확인해야 합니다. 이 프로젝트에서는 아래와 같이 **4개의 단계를 통해 절도를 검출합니다.**  
@@ -101,17 +101,17 @@ Accuracy : 71.93%
 
 ### Appendix
 ___
-- images/ : Readme.MD에 사용한 이미지 디렉토리 입니다.
+- **images/** : Readme.MD에 사용한 이미지 디렉토리 입니다.
 ___
-- preprocessors/ : Action Detection모델을 학습하기 위한 영상을 가공하는 스크립트 디렉토리 입니다.  
-- preprocessors/video_cutter.py : 영상에 행동의 시작/끝이 영상의 시작/끝이 되도록 trimming하는 스크립트입니다.
-- preprocessors/text_configuration_maker.py : 모델 학습에 사용되는 Binary Class Output 파일 생성 스크립트입니다.
-- preprocessors/integrity_check.py : 모델 학습용 영상에 중복이 없는지 확인하는 스크립트 입니다.
+- **preprocessors/** : Action Detection모델을 학습하기 위한 영상을 가공하는 스크립트 디렉토리 입니다.  
+- **preprocessors/video_cutter.py** : 영상에 행동의 시작/끝이 영상의 시작/끝이 되도록 trimming하는 스크립트입니다.
+- **preprocessors/text_configuration_maker.py** : 모델 학습에 사용되는 Binary Class Output 파일 생성 스크립트입니다.
+- **preprocessors/integrity_check.py** : 모델 학습용 영상에 중복이 없는지 확인하는 스크립트 입니다.
 ___
-- validate/validate.py : 영상 하나를 Test하여 결과를 알아내는 스크립트입니다.
-- validate/validate_get_hyper.py : 학습을 통해 생성된 모델은 입력할 프레임 개수를 변수로 필요로 합니다. 또한 절도를 확인하기 위한 confidence값 등을 알아내기 위한 자동화 스크립트입니다. 프레임 개수를 1 ~ 125개, confidence값을 0.9~0.99, 절도에 관한 변수들 여러개를 테스트하며 구글 코랩에서 3시간이 소요됐습니다.
-- validate/get_result.py : Test셋에 Accuracy, Recall, Precision결과를 저장하는 스크립트입니다. 
-- validate/tsm_best_acc_epoch7.pth : TSM모델에서 가장 좋은 결과를 보여준 epoch의 weight모음과 이하 설정 파일입니다. 
+- **validate/validate.py** : 영상 하나를 Test하여 결과를 알아내는 스크립트입니다.
+- **validate/validate_get_hyper.py** : 학습을 통해 생성된 모델은 입력할 프레임 개수를 변수로 필요로 합니다. 또한 절도를 확인하기 위한 confidence값 등을 알아내기 위한 자동화 스크립트입니다. 프레임 개수를 1 ~ 125개, confidence값을 0.9~0.99, 절도에 관한 변수들 여러개를 테스트하며 구글 코랩에서 3시간이 소요됐습니다.
+- **validate/get_result.py** : Test셋에 Accuracy, Recall, Precision결과를 저장하는 스크립트입니다. 
+- **validate/tsm_best_acc_epoch7.pth** : TSM모델에서 가장 좋은 결과를 보여준 epoch의 weight모음과 이하 설정 파일입니다. 
 ___
 **영상 파일 크기에 따라 Github에 올리지 못한 파일이 있습니다. 전체 구조는 아래와 같습니다. level-2까지의 파일구조(tree -L 2)**  
 ├── ActionInference.ipynb  
